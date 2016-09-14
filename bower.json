@@ -10,7 +10,6 @@
     "ember": "^2.8.0"
   },
   "devDependencies": {
-    "ember": "2.8.0",
-    "ember-data": "2.7.0"
+    "ember": "2.8.0"
   }
 }

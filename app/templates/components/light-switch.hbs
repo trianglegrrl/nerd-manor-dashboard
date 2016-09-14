@@ -1,0 +1,5 @@
+<h3>{{name}}{{lights.length}}</h3>
+{{light-switch-status lights=(unwrap-promise lights)}}
+<button type="button" class="Button" {{action 'setStates' true}}>Turn on</button>
+<button type="button" class="Button" {{action 'setStates' false}}>Turn off</button>
+<button type="button" class="Button" {{action 'getState' switches}}>Get state</button>

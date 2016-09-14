@@ -5,7 +5,13 @@ module.exports = function(environment) {
     modulePrefix: 'nerd-manor-dashboard',
     environment: environment,
     baseURL: '/',
+    hueKey: process.env.HUE_KEY,
     locationType: 'auto',
+
+    xdomain: {
+      debug: true,
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

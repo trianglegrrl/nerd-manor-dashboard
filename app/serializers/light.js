@@ -9,10 +9,21 @@ export default DS.RESTSerializer.extend({
 
     normalizeSingleResponse: function(store, primaryModelClass, payload, id, requestType) {
         var typeKey = primaryModelClass.modelName;
+        let dataObject = payload['data'][0];
         payload[typeKey] = payload['data'][0];
         delete payload['data'];
+        let returnArray = [];
+        let returnObj = {};
 
-        return this._normalizeResponse(store, primaryModelClass, payload, id, requestType, true);
+        dataObject.id = parseInt(id);
+        dataObject.brightness = dataObject.state.bri;
+        dataObject.alert = dataObject.state.alert;
+        dataObject.reachable = dataObject.state.reachable;
+        dataObject.state = dataObject.state.on;
+
+        returnObj[typeKey] = dataObject;
+
+        return this._normalizeResponse(store, primaryModelClass, returnObj, id, requestType, false);
     },
     // Custom json root. The API returns objects in the "data" key.
     // We need to re-assign it to the plural version of the model name.
@@ -29,12 +40,12 @@ export default DS.RESTSerializer.extend({
           dataObject[key].brightness = dataObject[key].state.bri;
           dataObject[key].alert = dataObject[key].state.alert;
           dataObject[key].reachable = dataObject[key].state.reachable;
-          dataObject[key].state = dataObject[key].state.on === "true" ? 'on' : 'off';
+          dataObject[key].state = dataObject[key].state.on;
           returnArray.push(dataObject[key]);
         }
 
         let returnObj = {};
-        returnObj.lights = returnArray;
+        returnObj[pluralTypeKey] = returnArray;
 
         return this._normalizeResponse(store, primaryModelClass, returnObj, id, requestType, false);
     }

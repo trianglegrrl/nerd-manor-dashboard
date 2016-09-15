@@ -25,7 +25,8 @@ export default Component.extend({
     setStates(state) {
       this.get('lights').then((lights) => {
         return lights.forEach(function(light) {
-          return light.setState({ "on": `${state}` });
+          light.setState({ "on": state });
+          return light.reload();
         });
       });
     },

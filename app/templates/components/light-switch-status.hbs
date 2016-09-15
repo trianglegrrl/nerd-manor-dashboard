@@ -1,4 +1,7 @@
 {{#each lights as |light|}}
-  <div class="Light-{{light.state}}">{{light.state}}</div>
+  {{#if light.isOn}}
+    <div class="Light-on">On</div>
+  {{else}}
+    <div class="Light-off">Off</div>
+  {{/if}}
 {{/each}}
-{{log lights}}
